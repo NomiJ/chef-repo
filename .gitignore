@@ -122,3 +122,7 @@ nodes
 
 # ## Office Temp Files
 # ~$*
+.kitchen.local.yml
+
+.kitchen
+kitchen*.yml
