@@ -33,7 +33,14 @@ jobs:
       - name: Install kitchen-docker
         run: sudo /opt/chef-workstation/embedded/bin/gem install kitchen-docker
 
-      - name: Run Kitchen Test
+      - name: Set up kitchen-docker
+        run: |
+            echo 'eval "$(chef shell-init bash)"' >> ~/.bashrc
+            source ~/.bashrc
+            chef gem install kitchen-docker
+      - name: Run Test Kitchen
         run: |
           mv kitchen.yml .kitchen.yml
-          KITCHEN_YAML=.kitchen.yml kitchen test
+          echo 'eval "$(chef shell-init bash)"' >> ~/.bashrc
+          source ~/.bashrc
+          chef exec kitchen test
