@@ -1,0 +1,38 @@
+name: Chef CI
+
+on:
+  push:
+    paths:
+      - 'cookbooks/**'
+      - 'kitchen.yml'
+      - 'test/**'
+  pull_request:
+
+jobs:
+  test-cookbooks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby (needed for cookstyle & kitchen)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+
+      - name: Install Chef Workstation
+        run: |
+          curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P chef-workstation
+
+      - name: Install kitchen-docker
+        run: sudo /opt/chef-workstation/embedded/bin/gem install kitchen-docker
+
+      - name: Run Cookstyle (Lint)
+        run: cookstyle
+
+      - name: Run Kitchen Test
+        run: |
+          mv kitchen.yml .kitchen.yml
+          KITCHEN_YAML=.kitchen.yml kitchen test
+
