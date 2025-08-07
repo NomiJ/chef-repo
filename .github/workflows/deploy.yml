@@ -16,7 +16,8 @@ on:
 jobs:
   test-cookbooks:
     runs-on: ubuntu-latest
-
+    env:
+          CHEF_LICENSE: accept-no-persist
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
