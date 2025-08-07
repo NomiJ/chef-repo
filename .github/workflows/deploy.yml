@@ -2,11 +2,20 @@ name: Chef CI
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'cookbooks/**'
       - 'kitchen.yml'
       - 'test/**'
+
   pull_request:
+    branches:
+      - main
+    paths:
+      - 'cookbooks/**'
+      - 'kitchen.yml'
+      - 'test/**'
 
 jobs:
   test-cookbooks:
@@ -16,7 +25,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Ruby (needed for cookstyle & kitchen)
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1'
@@ -28,9 +37,10 @@ jobs:
       - name: Install kitchen-docker
         run: sudo /opt/chef-workstation/embedded/bin/gem install kitchen-docker
 
+      - name: Run Cookstyle (Lint)
+        run: cookstyle
 
       - name: Run Kitchen Test
         run: |
           mv kitchen.yml .kitchen.yml
           KITCHEN_YAML=.kitchen.yml kitchen test
-
