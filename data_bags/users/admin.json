@@ -1,0 +1,5 @@
+{
+  "id": "admin",
+  "fullname": "Admin User",
+  "ssh_keys": ["ssh-rsa AAAA..."]
+}

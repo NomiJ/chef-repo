@@ -14,3 +14,8 @@ end
 describe port(80), :skip do
   it { should_not be_listening }
 end
+
+describe file('/tmp/hello_template.txt') do
+  it { should exist }
+  its('content') { should match /Hello/ }
+end

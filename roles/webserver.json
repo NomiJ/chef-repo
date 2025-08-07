@@ -1,0 +1,5 @@
+{
+  "name": "webserver",
+  "description": "Role for web servers",
+  "run_list": ["recipe[my_cookbook]"]
+}
