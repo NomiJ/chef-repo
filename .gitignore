@@ -125,4 +125,3 @@ nodes
 .kitchen.local.yml
 
 .kitchen
-kitchen*.yml
