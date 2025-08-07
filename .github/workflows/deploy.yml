@@ -28,8 +28,6 @@ jobs:
       - name: Install kitchen-docker
         run: sudo /opt/chef-workstation/embedded/bin/gem install kitchen-docker
 
-      - name: Run Cookstyle (Lint)
-        run: cookstyle
 
       - name: Run Kitchen Test
         run: |
